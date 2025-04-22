@@ -39,34 +39,88 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Accordion functionality
-const accordions = document.querySelectorAll('.accordion, .sub-accordion');
+// Function to update parent panel height
+function updateParentPanelHeight(parentPanel) {
+    if (parentPanel.classList.contains('active')) {
+        const parentHeight = Array.from(parentPanel.children)
+            .reduce((height, child) => {
+                if (child.classList.contains('sub-panel') && child.classList.contains('active')) {
+                    return height + child.scrollHeight;
+                }
+                return height + (child.offsetHeight || 0);
+            }, 0);
+        parentPanel.style.maxHeight = parentHeight + 'px';
+    }
+}
 
-accordions.forEach(accordion => {
+// Accordion functionality
+document.querySelectorAll('.accordion').forEach(accordion => {
     accordion.addEventListener('click', () => {
         const panel = accordion.nextElementSibling;
-        const isSubAccordion = accordion.classList.contains('sub-accordion');
+        const wasActive = panel.classList.contains('active');
         
-        // Close all other panels at the same level
-        const parentPanel = isSubAccordion ? 
-            accordion.closest('.panel') : 
-            document.querySelector('.accordion-container');
-            
-        const otherPanels = parentPanel.querySelectorAll(`.${isSubAccordion ? 'sub-' : ''}panel`);
-        otherPanels.forEach(otherPanel => {
-            if (otherPanel !== panel) {
+        // Close all other main panels
+        document.querySelectorAll('.accordion').forEach(otherAccordion => {
+            if (otherAccordion !== accordion) {
+                otherAccordion.classList.remove('active');
+                const otherPanel = otherAccordion.nextElementSibling;
                 otherPanel.style.maxHeight = null;
-                otherPanel.previousElementSibling.classList.remove('active');
+                otherPanel.classList.remove('active');
             }
         });
 
         // Toggle current panel
         accordion.classList.toggle('active');
-        if (panel.style.maxHeight) {
+        if (wasActive) {
             panel.style.maxHeight = null;
+            panel.classList.remove('active');
         } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
+            panel.classList.add('active');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
         }
+    });
+});
+
+// Sub-accordion functionality
+document.querySelectorAll('.sub-accordion').forEach(subAccordion => {
+    subAccordion.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        const subPanel = subAccordion.nextElementSibling;
+        const parentPanel = subAccordion.closest('.panel');
+        const wasActive = subPanel.classList.contains('active');
+
+        // Ensure parent panel is open
+        if (!parentPanel.classList.contains('active')) {
+            const parentAccordion = parentPanel.previousElementSibling;
+            parentAccordion.classList.add('active');
+            parentPanel.classList.add('active');
+        }
+
+        // Close other sub-panels in the same parent
+        parentPanel.querySelectorAll('.sub-accordion').forEach(otherSubAccordion => {
+            if (otherSubAccordion !== subAccordion) {
+                otherSubAccordion.classList.remove('active');
+                const otherSubPanel = otherSubAccordion.nextElementSibling;
+                otherSubPanel.style.maxHeight = null;
+                otherSubPanel.classList.remove('active');
+            }
+        });
+
+        // Toggle current sub-panel
+        subAccordion.classList.toggle('active');
+        if (wasActive) {
+            subPanel.style.maxHeight = null;
+            subPanel.classList.remove('active');
+        } else {
+            subPanel.classList.add('active');
+            subPanel.style.maxHeight = subPanel.scrollHeight + 'px';
+        }
+
+        // Update parent panel height
+        setTimeout(() => {
+            updateParentPanelHeight(parentPanel);
+        }, 10);
     });
 });
 
