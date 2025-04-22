@@ -321,7 +321,14 @@ section h2 {
     content: "•";
     position: absolute;
     left: 0;
-    color: var(--accent-color);
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+}
+
+.achievements li strong {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+    font-weight: 500;
 }
 
 /* Accordion Style */
