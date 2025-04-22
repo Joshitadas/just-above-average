@@ -562,6 +562,12 @@ h2::after {
 }
 
 /* Text Formatting */
+p strong {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+    font-weight: 500;
+}
+
 p, .sub-panel p, .motivation-content > p, .motivation-item p, .about-content p {
     text-align: justify;
     hyphens: auto;
@@ -619,6 +625,32 @@ blockquote p {
 }
 
 @media screen and (max-width: 768px) {
+    .banner {
+        height: 70vh;
+        min-height: 500px;
+        padding: 80px 20px;
+        justify-content: center;
+    }
+
+    .banner h1 {
+        font-size: 2.5rem;
+        letter-spacing: 0.2em;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+    }
+
+    .banner p {
+        font-size: 1rem;
+        letter-spacing: 0.2em;
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+
+    .banner .title-container {
+        padding: 2rem;
+        max-width: 100%;
+    }
+
     header {
         position: fixed;
         top: 0;
@@ -717,148 +749,97 @@ blockquote p {
     /* Mobile Content Adjustments */
     main {
         padding-top: 80px;
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     main section {
-        margin: 30px 0;
-        padding: 25px 20px;
-    }
-
-    .sub-panel {
-        padding: 15px;
-        margin: 10px 0;
-    }
-
-    .sub-panel pre {
-        margin: 15px -15px;
-        padding: 15px;
-        font-size: 0.9rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .sub-panel pre code {
-        white-space: pre;
-    }
-
-    /* Better Touch Targets */
-    .accordion, .sub-accordion {
-        padding: 15px;
-        margin-bottom: 15px;
-        min-height: 50px;
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
-
-    .accordion::after, .sub-accordion::after {
-        content: '+';
-        position: absolute;
-        right: 15px;
-        font-size: 1.5rem;
-        color: var(--neon-blue);
-        transition: all 0.3s ease;
-    }
-
-    .accordion.active::after, .sub-accordion.active::after {
-        transform: rotate(45deg);
-    }
-
-    /* Mobile Typography */
-    .sub-panel h3, .sub-panel h4, .sub-panel h5 {
-        font-size: 1.2rem;
-        margin: 20px 0 15px;
-    }
-
-    .sub-panel p, .sub-panel li {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    /* Mobile Image Handling */
-    #about .about-image {
-        max-width: 100%;
-        height: auto;
         margin: 20px 0;
+        padding: 20px 15px;
+        border: none;
+        border-radius: 0;
+        background: rgba(16, 16, 32, 0.5);
     }
 
-    #about .about-image img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 8px;
+    main section:hover {
+        box-shadow: none;
+        border: none;
     }
 
-    /* Mobile List Styling */
-    .sub-panel ul, .sub-panel ol {
-        padding-left: 20px;
-        margin: 15px 0;
+    .about-content {
+        padding: 0;
     }
 
-    .sub-panel li {
-        margin: 10px 0;
-    }
-
-    /* Mobile Blockquote */
-    .sub-panel blockquote {
-        margin: 20px -15px;
-        padding: 15px;
-        font-size: 0.95rem;
-    }
-
-    /* Fix text wrapping and alignment */
-    p, .sub-panel p, .motivation-content > p, .motivation-item p, .about-content p {
-        text-align: left;
-        hyphens: none;
-        -webkit-hyphens: none;
-        -ms-hyphens: none;
-        word-break: normal;
-        white-space: normal;
-    }
-
-    /* Motivation grid fixes for mobile */
-    .motivation-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
+    .achievements {
+        margin: 1.5rem 0;
+        padding: 1rem 0;
+        background: none;
+        border-radius: 0;
     }
 
     .motivation-item {
-        width: 100%;
-        padding: 1.5rem;
+        border: none;
+        border-radius: 0;
+        padding: 1.5rem 15px;
         margin-bottom: 1rem;
-        background: rgba(16, 16, 32, 0.7);
+        background: rgba(16, 16, 32, 0.5);
     }
 
-    .motivation-item h3 {
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        color: var(--neon-blue);
-        white-space: normal;
-        word-break: normal;
+    .motivation-item::before {
+        display: none;
     }
 
-    .motivation-item p {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        white-space: normal;
-        word-break: normal;
-        margin: 0;
+    .motivation-item:hover {
+        transform: none;
+        box-shadow: none;
+        border: none;
     }
 
-    /* About section text fixes */
-    .about-content p {
-        white-space: normal;
-        word-break: normal;
-        margin-bottom: 1rem;
+    /* Adjust accordion styles for mobile */
+    .accordion, .sub-accordion {
+        border: none;
+        border-radius: 0;
+        padding: 15px;
+        margin-bottom: 10px;
+        background: rgba(16, 16, 32, 0.5);
+    }
+
+    .panel, .sub-panel {
+        border: none;
+        border-radius: 0;
+        background: rgba(16, 16, 32, 0.3);
+    }
+
+    .panel.active, .sub-panel.active {
+        padding: 15px;
     }
 }
 
 @media screen and (max-width: 480px) {
+    .banner {
+        height: 60vh;
+        min-height: 400px;
+        padding: 60px 15px;
+    }
+
+    .banner h1 {
+        font-size: 2rem;
+        letter-spacing: 0.15em;
+    }
+
+    .banner p {
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+    }
+
+    .banner .title-container {
+        padding: 1.5rem;
+    }
+
     /* Additional fixes for smaller screens */
     .motivation-item {
-        padding: 1.2rem;
+        padding: 1.2rem 10px;
     }
 
     .motivation-item h3 {
@@ -877,6 +858,19 @@ blockquote p {
         line-height: 1.5;
         white-space: normal;
         word-break: normal;
+    }
+
+    main section {
+        margin: 15px 0;
+        padding: 15px 10px;
+    }
+
+    .panel.active, .sub-panel.active {
+        padding: 10px;
+    }
+
+    .achievements {
+        padding: 0.5rem 0;
     }
 }
 
