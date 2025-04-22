@@ -1,17 +1,53 @@
 // Mobile Menu Toggle
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('nav');
+const body = document.body;
 
+// Function to close mobile menu
+function closeMobileMenu() {
+    menuToggle.classList.remove('active');
+    nav.classList.remove('active');
+    body.style.overflow = '';
+}
+
+// Toggle mobile menu
 menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('active');
     nav.classList.toggle('active');
+    // Prevent body scroll when menu is open
+    body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (nav.classList.contains('active') && 
+        !nav.contains(e.target) && 
+        !menuToggle.contains(e.target)) {
+        closeMobileMenu();
+    }
 });
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        nav.classList.remove('active');
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        closeMobileMenu();
+        
+        // Smooth scroll to target after menu closes
+        setTimeout(() => {
+            const target = document.querySelector(targetId);
+            if (target) {
+                const headerOffset = 70;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 300);
     });
 });
 
@@ -29,13 +65,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Header scroll effect
+// Header scroll effect with throttle
+let lastScrollTop = 0;
 const header = document.querySelector('header');
+let ticking = false;
+
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const currentScroll = window.pageYOffset;
+            
+            // Add scrolled class when scrolling down
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Hide/show header based on scroll direction
+            if (currentScroll > lastScrollTop && currentScroll > 100) {
+                // Scrolling down & not at top
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up or at top
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = currentScroll;
+            ticking = false;
+        });
+        ticking = true;
     }
 });
 
@@ -53,76 +112,70 @@ function updateParentPanelHeight(parentPanel) {
     }
 }
 
-// Accordion functionality
-document.querySelectorAll('.accordion').forEach(accordion => {
-    accordion.addEventListener('click', () => {
+// Accordion functionality with improved mobile handling
+document.querySelectorAll('.accordion, .sub-accordion').forEach(accordion => {
+    accordion.addEventListener('click', (e) => {
+        e.preventDefault();
         const panel = accordion.nextElementSibling;
-        const wasActive = panel.classList.contains('active');
-        
-        // Close all other main panels
-        document.querySelectorAll('.accordion').forEach(otherAccordion => {
-            if (otherAccordion !== accordion) {
-                otherAccordion.classList.remove('active');
-                const otherPanel = otherAccordion.nextElementSibling;
-                otherPanel.style.maxHeight = null;
-                otherPanel.classList.remove('active');
+        const isSubAccordion = accordion.classList.contains('sub-accordion');
+        const parentPanel = isSubAccordion ? accordion.closest('.panel') : null;
+
+        // Close other accordions at the same level
+        const container = isSubAccordion ? parentPanel : accordion.parentElement;
+        container.querySelectorAll(isSubAccordion ? '.sub-accordion' : '.accordion').forEach(other => {
+            if (other !== accordion) {
+                other.classList.remove('active');
+                other.nextElementSibling.style.maxHeight = null;
+                other.nextElementSibling.classList.remove('active');
             }
         });
 
-        // Toggle current panel
+        // Toggle current accordion
         accordion.classList.toggle('active');
-        if (wasActive) {
-            panel.style.maxHeight = null;
-            panel.classList.remove('active');
-        } else {
-            panel.classList.add('active');
+        panel.classList.toggle('active');
+
+        if (panel.classList.contains('active')) {
             panel.style.maxHeight = panel.scrollHeight + 'px';
-        }
-    });
-});
-
-// Sub-accordion functionality
-document.querySelectorAll('.sub-accordion').forEach(subAccordion => {
-    subAccordion.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        const subPanel = subAccordion.nextElementSibling;
-        const parentPanel = subAccordion.closest('.panel');
-        const wasActive = subPanel.classList.contains('active');
-
-        // Ensure parent panel is open
-        if (!parentPanel.classList.contains('active')) {
-            const parentAccordion = parentPanel.previousElementSibling;
-            parentAccordion.classList.add('active');
-            parentPanel.classList.add('active');
-        }
-
-        // Close other sub-panels in the same parent
-        parentPanel.querySelectorAll('.sub-accordion').forEach(otherSubAccordion => {
-            if (otherSubAccordion !== subAccordion) {
-                otherSubAccordion.classList.remove('active');
-                const otherSubPanel = otherSubAccordion.nextElementSibling;
-                otherSubPanel.style.maxHeight = null;
-                otherSubPanel.classList.remove('active');
+            if (isSubAccordion && parentPanel) {
+                parentPanel.style.maxHeight = parentPanel.scrollHeight + panel.scrollHeight + 'px';
             }
-        });
-
-        // Toggle current sub-panel
-        subAccordion.classList.toggle('active');
-        if (wasActive) {
-            subPanel.style.maxHeight = null;
-            subPanel.classList.remove('active');
+            
+            // Scroll into view on mobile
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    const headerHeight = 70;
+                    const accordionTop = accordion.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({
+                        top: accordionTop - headerHeight - 20,
+                        behavior: 'smooth'
+                    });
+                }, 300);
+            }
         } else {
-            subPanel.classList.add('active');
-            subPanel.style.maxHeight = subPanel.scrollHeight + 'px';
+            panel.style.maxHeight = null;
+            if (isSubAccordion && parentPanel) {
+                parentPanel.style.maxHeight = parentPanel.scrollHeight - panel.scrollHeight + 'px';
+            }
         }
-
-        // Update parent panel height
-        setTimeout(() => {
-            updateParentPanelHeight(parentPanel);
-        }, 10);
     });
 });
+
+// Touch feedback for mobile devices
+if ('ontouchstart' in window) {
+    const addTouchFeedback = (element) => {
+        element.addEventListener('touchstart', () => {
+            element.classList.add('touch-active');
+        });
+        
+        ['touchend', 'touchcancel'].forEach(event => {
+            element.addEventListener(event, () => {
+                element.classList.remove('touch-active');
+            });
+        });
+    };
+
+    document.querySelectorAll('.accordion, .sub-accordion, nav a').forEach(addTouchFeedback);
+}
 
 // Initialize panels
 document.querySelectorAll('.panel, .sub-panel').forEach(panel => {
