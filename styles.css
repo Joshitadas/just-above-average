@@ -790,9 +790,58 @@ blockquote p {
         padding: 15px;
         font-size: 0.95rem;
     }
+
+    /* Text alignment fixes for mobile */
+    p, .sub-panel p, .motivation-content > p, .motivation-item p, .about-content p {
+        text-align: left;
+        hyphens: none;
+        -webkit-hyphens: none;
+        -ms-hyphens: none;
+    }
+
+    .sub-panel ul, .sub-panel ol, .achievements ul {
+        text-align: left;
+        padding-right: 15px;
+    }
+
+    .sub-panel li, .achievements li {
+        text-align: left;
+    }
+
+    /* Motivation grid for mobile */
+    .motivation-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .motivation-item {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .motivation-item p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Adjust spacing for better mobile readability */
+    main section {
+        padding: 25px 20px;
+    }
+
+    .motivation-content > p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .motivation-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
 }
 
-/* Additional Mobile Optimizations */
+/* Additional mobile optimizations */
 @media screen and (max-width: 480px) {
     .banner h1 {
         font-size: 1.8rem;
@@ -819,6 +868,24 @@ blockquote p {
 
     .motivation-item h3 {
         font-size: 1.2rem;
+    }
+
+    .motivation-grid {
+        gap: 1.2rem;
+    }
+
+    .motivation-item {
+        padding: 1.2rem;
+    }
+
+    .motivation-item p {
+        font-size: 0.9rem;
+    }
+
+    /* Ensure text remains readable */
+    p, .sub-panel p, .motivation-content > p {
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 }
 
