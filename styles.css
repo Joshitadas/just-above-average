@@ -546,6 +546,32 @@ h2::after {
     border-top: 1px solid var(--glass-border);
 }
 
+/* Text Formatting */
+p, .sub-panel p, .motivation-content > p, .motivation-item p, .about-content p {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+}
+
+.sub-panel ul, .sub-panel ol, .achievements ul {
+    text-align: justify;
+    padding-right: 20px;
+}
+
+.sub-panel li, .achievements li {
+    text-align: justify;
+}
+
+blockquote p {
+    text-align: justify;
+}
+
+/* Keep certain elements center-aligned */
+.banner p, footer p, .motivation-footer {
+    text-align: center;
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1200px) {
     main {
