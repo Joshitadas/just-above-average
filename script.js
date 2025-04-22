@@ -1,78 +1,77 @@
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('nav');
+
+menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    nav.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        nav.classList.remove('active');
+    });
+});
+
+// Smooth scrolling for all links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
 // Header scroll effect
 const header = document.querySelector('header');
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
+    if (window.scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
 });
 
-// Smooth scroll for navigation links
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        targetSection.scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
 // Accordion functionality
-const accordions = document.querySelectorAll('.accordion');
-const subAccordions = document.querySelectorAll('.sub-accordion');
+const accordions = document.querySelectorAll('.accordion, .sub-accordion');
 
-function toggleMainAccordion(accordion) {
-    const panel = accordion.nextElementSibling;
-    const isExpanded = accordion.classList.contains('active');
-    
-    // Close all main panels first
-    accordions.forEach(a => {
-        a.classList.remove('active');
-        a.nextElementSibling.style.display = 'none';
-    });
-    
-    // If the clicked accordion wasn't expanded, open it
-    if (!isExpanded) {
-        accordion.classList.add('active');
-        panel.style.display = 'block';
-    }
-}
+accordions.forEach(accordion => {
+    accordion.addEventListener('click', () => {
+        const panel = accordion.nextElementSibling;
+        const isSubAccordion = accordion.classList.contains('sub-accordion');
+        
+        // Close all other panels at the same level
+        const parentPanel = isSubAccordion ? 
+            accordion.closest('.panel') : 
+            document.querySelector('.accordion-container');
+            
+        const otherPanels = parentPanel.querySelectorAll(`.${isSubAccordion ? 'sub-' : ''}panel`);
+        otherPanels.forEach(otherPanel => {
+            if (otherPanel !== panel) {
+                otherPanel.style.maxHeight = null;
+                otherPanel.previousElementSibling.classList.remove('active');
+            }
+        });
 
-function toggleSubAccordion(subAccordion) {
-    const subPanel = subAccordion.nextElementSibling;
-    const isExpanded = subAccordion.classList.contains('active');
-    
-    // Close all sub-panels within the same main panel
-    const parentPanel = subAccordion.closest('.panel');
-    parentPanel.querySelectorAll('.sub-accordion').forEach(sa => {
-        sa.classList.remove('active');
-        if (sa.nextElementSibling) {
-            sa.nextElementSibling.style.display = 'none';
+        // Toggle current panel
+        accordion.classList.toggle('active');
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
         }
     });
-    
-    // If the clicked sub-accordion wasn't expanded, open it
-    if (!isExpanded) {
-        subAccordion.classList.add('active');
-        subPanel.style.display = 'block';
-    }
-}
-
-// Add click event listeners
-accordions.forEach(accordion => {
-    accordion.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMainAccordion(accordion);
-    });
 });
 
-subAccordions.forEach(subAccordion => {
-    subAccordion.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleSubAccordion(subAccordion);
-    });
+// Initialize panels
+document.querySelectorAll('.panel, .sub-panel').forEach(panel => {
+    panel.style.maxHeight = null;
 });
   
