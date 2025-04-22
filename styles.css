@@ -503,6 +503,9 @@ h2::after {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .motivation-item::before {
@@ -527,14 +530,19 @@ h2::after {
 
 .motivation-item h3 {
     color: var(--neon-blue);
-    margin-bottom: 1rem;
+    margin: 0;
     font-size: 1.3rem;
     letter-spacing: 0.1em;
+    white-space: normal;
+    word-break: normal;
 }
 
 .motivation-item p {
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
+    margin: 0;
+    white-space: normal;
+    word-break: normal;
 }
 
 .motivation-footer {
@@ -791,101 +799,77 @@ blockquote p {
         font-size: 0.95rem;
     }
 
-    /* Text alignment fixes for mobile */
+    /* Fix text wrapping and alignment */
     p, .sub-panel p, .motivation-content > p, .motivation-item p, .about-content p {
         text-align: left;
         hyphens: none;
         -webkit-hyphens: none;
         -ms-hyphens: none;
+        word-break: normal;
+        white-space: normal;
     }
 
-    .sub-panel ul, .sub-panel ol, .achievements ul {
-        text-align: left;
-        padding-right: 15px;
-    }
-
-    .sub-panel li, .achievements li {
-        text-align: left;
-    }
-
-    /* Motivation grid for mobile */
+    /* Motivation grid fixes for mobile */
     .motivation-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 1.5rem;
+        width: 100%;
     }
 
     .motivation-item {
+        width: 100%;
         padding: 1.5rem;
         margin-bottom: 1rem;
+        background: rgba(16, 16, 32, 0.7);
+    }
+
+    .motivation-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: var(--neon-blue);
+        white-space: normal;
+        word-break: normal;
     }
 
     .motivation-item p {
         font-size: 0.95rem;
         line-height: 1.6;
+        white-space: normal;
+        word-break: normal;
+        margin: 0;
     }
 
-    /* Adjust spacing for better mobile readability */
-    main section {
-        padding: 25px 20px;
-    }
-
-    .motivation-content > p {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 2rem;
-    }
-
-    .motivation-item h3 {
-        font-size: 1.2rem;
-        margin-bottom: 0.8rem;
+    /* About section text fixes */
+    .about-content p {
+        white-space: normal;
+        word-break: normal;
+        margin-bottom: 1rem;
     }
 }
 
-/* Additional mobile optimizations */
 @media screen and (max-width: 480px) {
-    .banner h1 {
-        font-size: 1.8rem;
-        letter-spacing: 0.1em;
-    }
-
-    .banner p {
-        font-size: 0.85rem;
-        letter-spacing: 0.15em;
-    }
-
-    main section {
-        padding: 20px 15px;
-        margin: 20px 0;
-    }
-
-    section h2 {
-        font-size: 1.4rem;
-    }
-
-    .motivation-item {
-        padding: 20px;
-    }
-
-    .motivation-item h3 {
-        font-size: 1.2rem;
-    }
-
-    .motivation-grid {
-        gap: 1.2rem;
-    }
-
+    /* Additional fixes for smaller screens */
     .motivation-item {
         padding: 1.2rem;
     }
 
+    .motivation-item h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
     .motivation-item p {
         font-size: 0.9rem;
+        line-height: 1.5;
     }
 
     /* Ensure text remains readable */
     p, .sub-panel p, .motivation-content > p {
         font-size: 0.95rem;
         line-height: 1.5;
+        white-space: normal;
+        word-break: normal;
     }
 }
 
