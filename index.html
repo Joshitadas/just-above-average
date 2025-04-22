@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Just Above Average</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#motivation">Motivation</a></li>
+        <li><a href="#learnings">Learnings and Notes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="banner">
+    <div class="title-container">
+      <h1><span>Just</span> Above <span>Average</span></h1>
+    </div>
+  </section>
+
+  <main>
+    <section id="about">
+      <div class="about-content">
+        <h2>About Me</h2>
+        <p>
+          Hey there! I'm Joshita, a Computer Science Engineer who's passionate about making tech more accessible to everyone. Why "Just Above Average"? Because I believe in celebrating progress over perfection, and documenting the beautiful mess that is learning.
+        </p>
+        
+        <div class="achievements">
+          <h3>Notable Milestones</h3>
+          <ul>
+            <li>Teaching Assistant at NUS, where I helped global students grasp AI & ML concepts through clear, approachable explanations</li>
+            <li>Google Women Engineers Scholar, learning from the best in the industry</li>
+            <li>Incoming Software QA Intern at ServiceNow, focusing on quality and reliability in software development</li>
+          </ul>
+        </div>
+
+        <p>
+          This space is my digital garden where I document my learning journey, share detailed notes, and hopefully help fellow tech enthusiasts who are figuring things out too. Because at the end of the day, we're all just trying to be a little better than yesterday.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="assets/me.jpeg" alt="Joshita Das">
+      </div>
+    </section>
+
+    <section id="motivation">
+      <h2>Motivation</h2>
+      <div class="motivation-content">
+        <p>
+          This page exists for two primary reasons: accountability and community contribution. While navigating the vast world of computer science, I've learned that the best way to truly understand something is to explain it to others.
+        </p>
+
+        <div class="motivation-grid">
+          <div class="motivation-item">
+            <h3>Personal Growth</h3>
+            <p>
+              Documenting my learning journey helps me stay accountable and reinforces my understanding of complex concepts.
+            </p>
+          </div>
+
+          <div class="motivation-item">
+            <h3>Knowledge Sharing</h3>
+            <p>
+              Breaking down technical concepts into digestible pieces, making computer science more approachable for everyone.
+            </p>
+          </div>
+
+          <div class="motivation-item">
+            <h3>Building Bridges</h3>
+            <p>
+              Contributing back to the tech community by creating resources I wish I had when starting out.
+            </p>
+          </div>
+        </div>
+
+        <p class="motivation-footer">
+          Whether you're here to learn, explore, or just curious about my journey, I hope you'll find something valuable to take away. After all, we're all just trying to be just above average, one concept at a time.
+        </p>
+      </div>
+    </section>
+
+    <section id="learnings">
+      <h2>Learnings and Notes</h2>
+      <div class="accordion-container">
+        <button class="accordion">AI Agents</button>
+        <div class="panel">
+          <button class="sub-accordion">What are AI Agents?</button>
+          <div class="sub-panel">
+            <h3>AI Agents Explained</h3>
+            <hr />
+          
+            <h4>1. What are AI Agents?</h4>
+            <p>
+              An AI Agent is a digital worker that can understand natural language instructions and autonomously take actions to complete tasks.
+              Think of them as intelligent bots that can mimic how a human might approach a task.
+            </p>
+            <p>They can perform tasks such as:</p>
+            <ul>
+              <li>Searching through a database</li>
+              <li>Updating spreadsheets</li>
+              <li>Sending emails</li>
+              <li>Generating documents</li>
+              <li>Booking appointments</li>
+            </ul>
+          
+            <hr />
+            <h4>2. What is an Agent Made Of?</h4>
+            <p>An AI agent typically consists of the following components:</p>
+            <ul>
+              <li><strong>LLM (Large Language Model)</strong> – Acts as the brain of the agent</li>
+              <li><strong>Prompt</strong> – Natural language instructions that guide the agent's behavior</li>
+              <li><strong>Memory</strong> – Stores short-term or long-term context</li>
+              <li><strong>External Knowledge</strong> – Domain-specific information like APIs or documents</li>
+              <li><strong>Tools</strong> – Functions or APIs that let the agent take real-world actions</li>
+            </ul>
+          
+            <hr />
+            <h4>3. What Do We Focus On?</h4>
+            <p>With powerful LLMs like GPT-4 taking care of the "brain" and "memory", most of our focus shifts to:</p>
+            <ul>
+              <li><strong>Prompts</strong> – Crafting clear and structured instructions</li>
+              <li><strong>External Knowledge</strong> – Providing the agent with domain-specific data and context</li>
+              <li><strong>Tools</strong> – Giving agents the right APIs or functions to perform real tasks</li>
+            </ul>
+          
+            <hr />
+            <h4>4. What Are Tools?</h4>
+            <p>
+              Tools are how agents interact with the outside world — they are APIs or functions that perform specific actions.
+              Each tool typically comes with a schema, which tells the agent how to use it.
+            </p>
+          
+            <h5>🧩 JSON Tool Schema Example</h5>
+            <pre><code>{
+            "name": "send_email",
+            "description": "Sends an email using provided recipient, subject, and message.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "recipient": { "type": "string", "description": "Email address of the recipient" },
+                "subject": { "type": "string", "description": "Subject of the email" },
+                "body": { "type": "string", "description": "Body of the email" }
+              },
+              "required": ["recipient", "subject", "body"]
+            }
+          }</code></pre>
+          
+            <h5>🐍 Python Implementation of the Tool</h5>
+            <pre><code>def send_email(recipient: str, subject: str, body: str):
+              print(f"Sending email to {recipient}...\nSubject: {subject}\n\n{body}")</code></pre>
+          
+            <hr />
+            <h4>5. How Does the Agent Work?</h4>
+            <p>
+              AI agents generally follow a <strong>Plan → Act → Reflect → Plan</strong> loop (PARP loop). Here's a breakdown:
+            </p>
+            <h5>🧪 Example Prompt:</h5>
+            <blockquote>"Send a meeting invite to Alice for Friday at 3 PM."</blockquote>
+          
+            <ol>
+              <li><strong>Plan:</strong> Decide it needs to check the calendar first.</li>
+              <li><strong>Act:</strong> Calls <code>check_calendar()</code> and then <code>send_email()</code>.</li>
+              <li><strong>Reflect:</strong> Confirms if the email was sent and calendar slot is booked.</li>
+              <li><strong>Plan Again:</strong> If any step fails, re-plan or escalate.</li>
+            </ol>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Just Above Average. Built with passion and curiosity.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
