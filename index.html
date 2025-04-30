@@ -118,7 +118,7 @@
               <li>Generating documents</li>
               <li>Booking appointments</li>
             </ul>
-          
+
             <hr />
             <h4>2. What is an Agent Made Of?</h4>
             <p>An AI agent typically consists of the following components:</p>
@@ -130,8 +130,6 @@
               <li><strong>Tools</strong> – Functions or APIs that let the agent take real-world actions</li>
             </ul>
           
-            <hr />
-            <h4>3. What Do We Focus On?</h4>
             <p>With powerful LLMs like GPT-4 taking care of the "brain" and "memory", most of our focus shifts to:</p>
             <ul>
               <li><strong>Prompts</strong> – Crafting clear and structured instructions</li>
@@ -140,7 +138,22 @@
             </ul>
           
             <hr />
-            <h4>4. What Are Tools?</h4>
+            <h4>3. How Do Agents Work?</h4>
+            <p>
+              AI agents generally follow a <strong>Plan → Act → Reflect → Plan</strong> loop (PARP loop). Here's a breakdown:
+            </p>
+            <h5>🧪 Example Prompt:</h5>
+            <blockquote>"Send a meeting invite to Alice for Friday at 3 PM."</blockquote>
+          
+            <ol>
+              <li><strong>Plan:</strong> Decide it needs to check the calendar first.</li>
+              <li><strong>Act:</strong> Calls <code>check_calendar()</code> and then <code>send_email()</code>.</li>
+              <li><strong>Reflect:</strong> Confirms if the email was sent and calendar slot is booked.</li>
+              <li><strong>Plan Again:</strong> If any step fails, re-plan or escalate.</li>
+            </ol>
+
+            <hr />
+            <h4>4. Understanding Tools</h4>
             <p>
               Tools are how agents interact with the outside world — they are APIs or functions that perform specific actions.
               Each tool typically comes with a schema, which tells the agent how to use it.
@@ -164,23 +177,66 @@
             <h5>🐍 Python Implementation of the Tool</h5>
             <pre><code>def send_email(recipient: str, subject: str, body: str):
               print(f"Sending email to {recipient}...\nSubject: {subject}\n\n{body}")</code></pre>
-          
-            <hr />
-            <h4>5. How Does the Agent Work?</h4>
-            <p>
-              AI agents generally follow a <strong>Plan → Act → Reflect → Plan</strong> loop (PARP loop). Here's a breakdown:
-            </p>
-            <h5>🧪 Example Prompt:</h5>
-            <blockquote>"Send a meeting invite to Alice for Friday at 3 PM."</blockquote>
-          
-            <ol>
-              <li><strong>Plan:</strong> Decide it needs to check the calendar first.</li>
-              <li><strong>Act:</strong> Calls <code>check_calendar()</code> and then <code>send_email()</code>.</li>
-              <li><strong>Reflect:</strong> Confirms if the email was sent and calendar slot is booked.</li>
-              <li><strong>Plan Again:</strong> If any step fails, re-plan or escalate.</li>
-            </ol>
           </div>
-          
+
+          <button class="sub-accordion">Why Prompts Are the Secret Weapon for AI Agents</button>
+          <div class="sub-panel">
+            <h3>Why Prompts Are the Secret Weapon for AI Agents</h3>
+            <hr />
+            
+            <p>
+              When people talk about AI agents, they usually throw around three big pieces:
+            </p>
+            <ol>
+              <li>LLMs, Memory, Knowledge – You're good here. GPTs are powerful and everywhere.</li>
+              <li>Tools/APIs – Important, but you can pick those as you go.</li>
+              <li>Prompts – This is the real sauce. And weirdly, the one everyone rushes past.</li>
+            </ol>
+
+            <hr />
+            <h4>Most People Get Prompts Totally Wrong</h4>
+            <p>
+              Some folks think prompts are just asking the AI nicely, they write vague, wishful, emotional prompts like they're casting a spell.
+              But abracadabra won't fix the agent.
+            </p>
+
+            <hr />
+            <h4>You're Not Just "Asking" — You're Programming</h4>
+            <p>
+              LLMs aren't psychic. They're simple pattern-matching machines. So we don't only have to 'effectively communicate', we have to 'engineer the prompt'
+              To get useful, consistent results, your prompt has to be:
+            </p>
+            <ul>
+              <li>🧱 Structured</li>
+              <li>🔍 Specific</li>
+              <li>🧠 Context-aware</li>
+              <li>🎯 Output-oriented</li>
+            </ul>
+
+            <hr />
+            <h4>The 6 Things a Great Prompt Should Have</h4>
+            <ol>
+              <li><strong>Context</strong> – What's happening? Who's it for? Why does it matter?</li>
+              <li><strong>Clarity</strong> – Be blunt. Treat it like a machine, not a coworker with vibes.</li>
+              <li><strong>Constraints</strong> – Word limits, tone, what to exclude.</li>
+              <li><strong>Input/Output formats</strong> – Tables, lists, JSON, markdown — shape the answer.</li>
+              <li><strong>Examples</strong> – Show it what good looks like. Copy-paste is its love language.</li>
+              <li><strong>Role assignment</strong> – "You are a..." sets the stage and changes the tone.</li>
+            </ol>
+
+            <hr />
+            <h4>Why This Matters for AI Agents</h4>
+            <p>
+              Without solid prompting, your agent will fumble, guess, and produce garbage. Basically it will hallucinate. 
+              With solid prompting, it behaves like a sharp, reliable digital intern — ready to summarize, decide, generate, and take action with clarity.
+            </p>
+
+            <hr />
+            <h4>Want to Test Your Prompts?</h4>
+            <p>
+              I built a tool that reviews your prompts based on the six rules above — and tells you what's missing, why it matters, and how to fix it.👉 <a href="https://github.com/Joshitadas/prompt_analyzer" target="_blank">https://github.com/Joshitadas/prompt_analyzer</a>
+            </p>
+          </div>
         </div>
       </div>
     </section>

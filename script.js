@@ -135,11 +135,16 @@ document.querySelectorAll('.accordion, .sub-accordion').forEach(accordion => {
         panel.classList.toggle('active');
 
         if (panel.classList.contains('active')) {
+            // Always set max-height to scrollHeight to fit all content
             panel.style.maxHeight = panel.scrollHeight + 'px';
             if (isSubAccordion && parentPanel) {
-                parentPanel.style.maxHeight = parentPanel.scrollHeight + panel.scrollHeight + 'px';
+                // Also update parent panel's max-height to fit all open sub-panels
+                let totalHeight = 0;
+                parentPanel.querySelectorAll('.sub-panel.active').forEach(activeSub => {
+                    totalHeight += activeSub.scrollHeight;
+                });
+                parentPanel.style.maxHeight = parentPanel.scrollHeight + totalHeight + 'px';
             }
-            
             // Scroll into view on mobile
             if (window.innerWidth <= 768) {
                 setTimeout(() => {
